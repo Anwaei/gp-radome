@@ -11,6 +11,7 @@ T_alpha=1;
 
 lambda_dot = function_radome_1(x);
 R_dot = abs(function_radome_2(x));
+% R_dot = -function_radome_2(x);
 
 Am_dot = (N*V_M*(1+rho)*R_dot*lambda_dot)/(N*T_alpha*rho*R_dot+tau*V_M) ...
     - (N*rho*R_dot+V_M)/(N*T_alpha*rho*R_dot+tau*V_M)*u;

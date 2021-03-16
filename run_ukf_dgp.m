@@ -15,6 +15,22 @@ theta_M=out.yout{11}.Values.Data;
 lambda_r=out.yout{12}.Values.Data;
 lambda_ME=out.yout{13}.Values.Data;
 
+% t=out.tout;
+% lambda_ME=out.yout{1}.Values.Data;
+% lambda=out.yout{2}.Values.Data;
+% R=out.yout{3}.Values.Data;
+% gamma_M=out.yout{4}.Values.Data;
+% A_M=out.yout{5}.Values.Data;
+% dot_lambda=out.yout{6}.Values.Data;
+% dot_R=out.yout{7}.Values.Data;
+% dot_gamma_M=out.yout{8}.Values.Data;
+% dot_A_M=out.yout{9}.Values.Data;
+% theta_s=out.yout{10}.Values.Data;
+% lambda_r=out.yout{11}.Values.Data;
+% alpha_M=out.yout{12}.Values.Data;
+% theta_M=out.yout{13}.Values.Data;
+% rho_theta=out.yout{14}.Values.Data;
+
 %% dynamics
 % (1) read CONTinuous data from simulink
 delta_t_cont=t(2)-t(1);
@@ -411,6 +427,7 @@ sfm=0.1;
 % sfm = sqrt(hyp(3));
 
 Xs=rad2deg(theta_s(index_s));
+Xs=sort(Xs);
 Xs=Xs';
 
 % GPR
@@ -460,6 +477,7 @@ sfm_disc=0.1;
 % sfm_disc = sqrt(hyp(3));
 
 Xs_disc=rad2deg(theta_s_disc(index_s_disc));
+Xs_disc=sort(Xs_disc);
 Xs_disc=Xs_disc';
 
 % GPR
@@ -509,6 +527,7 @@ sfm_est=0.5;
 % sfm_est = sqrt(hyp(3));
 
 Xs_est=rad2deg(theta_s_est(index_s_est));
+Xs_est=sort(Xs_est);
 Xs_est=Xs_est';
 
 % GPR

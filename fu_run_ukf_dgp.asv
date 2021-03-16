@@ -2,21 +2,18 @@ clc
 close all
 
 %% read CONTinuous data from simulink
-delta_t_disc=0.001;
-% out = fu_function_interp(out, delta_t_disc);
-
-t=out.tout;
-R=out.yout{1}.Values.Data;
-lambda=out.yout{2}.Values.Data;
-dot_gamma_M=out.yout{4}.Values.Data;
-A_M=out.yout{6}.Values.Data;
-gamma_M=out.yout{7}.Values.Data;
-rho_theta=out.yout{8}.Values.Data;
-alpha_M=out.yout{9}.Values.Data;
-theta_s=out.yout{10}.Values.Data;
-theta_M=out.yout{11}.Values.Data;
-lambda_r=out.yout{12}.Values.Data;
-lambda_ME=out.yout{13}.Values.Data;
+% t=out.tout;
+% R=out.yout{1}.Values.Data;
+% lambda=out.yout{2}.Values.Data;
+% dot_gamma_M=out.yout{4}.Values.Data;
+% A_M=out.yout{6}.Values.Data;
+% gamma_M=out.yout{7}.Values.Data;
+% rho_theta=out.yout{8}.Values.Data;
+% alpha_M=out.yout{9}.Values.Data;
+% theta_s=out.yout{10}.Values.Data;
+% theta_M=out.yout{11}.Values.Data;
+% lambda_r=out.yout{12}.Values.Data;
+% lambda_ME=out.yout{13}.Values.Data;
 
 t=out.tout;
 lambda_ME=out.yout{1}.Values.Data;
@@ -39,15 +36,14 @@ dot_lambda_r=out.yout{17}.Values.Data;
 
 %% dynamics
 % (1) read CONTinuous data from simulink
-% delta_t_cont=t(2)-t(1);
-delta_t_cont=0.001;
+delta_t_cont=t(2)-t(1);
 x1_cont=lambda;
 x2_cont=R;
 x3_cont=gamma_M;
 u_cont=A_M;
 
 % (2) calculate DISCrete data with 4th order Runge Kutta rule
-% delta_t_disc=0.001;
+delta_t_disc=0.001;
 % delta_t_disc=0.005;
 % delta_t_disc=0.01;
 % delta_t_disc=0.02;
@@ -77,9 +73,6 @@ for i=1:length(x1_disc)
 end
 
 % (3) testing, plot figure (CONTinuous VS DISCrete)
-x1_disc = zeros(size(x1_disc)); x2_disc = zeros(size(x2_disc)); x3_disc = zeros(size(x3_disc));
-
-
 figure
 subplot(2,3,1)
 plot(t,rad2deg(x1_cont),0:delta_t_disc:t(end),rad2deg(x1_disc))
@@ -106,37 +99,37 @@ title('flight path angle')
 grid on
 axis square
 
-% error_lambda=zeros(T+1,1);
-% error_R=zeros(T+1,1);
-% error_gamma_M=zeros(T+1,1);
-% for i=1:T+1
-%     index=1+(i-1)*delta_t_disc/delta_t_cont;
-%     index=round(index);
-%     error_lambda(i)=x1_cont(index)-x1_disc(i);
-%     error_R(i)=x2_cont(index)-x2_disc(i);
-%     error_gamma_M(i)=x3_cont(index)-x3_disc(i);
-% end
-% subplot(2,3,4)
-% plot(0:delta_t_disc:t(end),rad2deg(error_lambda))
-% xlabel('t (s)')
-% ylabel('\Delta \lambda (deg)')
-% title('discretization error of LOS angle')
-% grid on
-% axis square
-% subplot(2,3,5)
-% plot(0:delta_t_disc:t(end),error_R)
-% xlabel('t (s)')
-% ylabel('\Delta R (m)')
-% title('discretization error of relative distance')
-% grid on
-% axis square
-% subplot(2,3,6)
-% plot(0:delta_t_disc:t(end),rad2deg(error_gamma_M))
-% xlabel('t (s)')
-% ylabel('\Delta \gamma_M (deg)')
-% title('discretization error of flight path angle')
-% grid on
-% axis square
+error_lambda=zeros(T+1,1);
+error_R=zeros(T+1,1);
+error_gamma_M=zeros(T+1,1);
+for i=1:T+1
+    index=1+(i-1)*delta_t_disc/delta_t_cont;
+    index=round(index);
+    error_lambda(i)=x1_cont(index)-x1_disc(i);
+    error_R(i)=x2_cont(index)-x2_disc(i);
+    error_gamma_M(i)=x3_cont(index)-x3_disc(i);
+end
+subplot(2,3,4)
+plot(0:delta_t_disc:t(end),rad2deg(error_lambda))
+xlabel('t (s)')
+ylabel('\Delta \lambda (deg)')
+title('discretization error of LOS angle')
+grid on
+axis square
+subplot(2,3,5)
+plot(0:delta_t_disc:t(end),error_R)
+xlabel('t (s)')
+ylabel('\Delta R (m)')
+title('discretization error of relative distance')
+grid on
+axis square
+subplot(2,3,6)
+plot(0:delta_t_disc:t(end),rad2deg(error_gamma_M))
+xlabel('t (s)')
+ylabel('\Delta \gamma_M (deg)')
+title('discretization error of flight path angle')
+grid on
+axis square
 
 [theta_s_sort, theta_s_sort_index] = sort(theta_s);
 rho_theta_sort = rho_theta(theta_s_sort_index);
@@ -163,13 +156,13 @@ title('radome slope vs look angle calculated by diff');
 
 
 % examine rho continuous and discrete
-rho_theta_test = zeros(length(t),1);
-lambda_s_test = zeros(length(t),1);
-lambda_test = zeros(length(t),1);
-theta_M_test = zeros(length(t),1);
-alpha_M_test = zeros(length(t),1);
-gamma_M_test = zeros(length(t),1);
-for i = 1:length(t)
+rho_theta_test = zeros(T+1,1);
+lambda_s_test = zeros(T+1,1);
+lambda_test = zeros(T+1,1);
+theta_M_test = zeros(T+1,1);
+alpha_M_test = zeros(T+1,1);
+gamma_M_test = zeros(T+1,1);
+for i = 1:T+1
     x = [x1_cont(i), x2_cont(i), x3_cont(i)];
     u = u_cont(i);
     rho_theta_test(i) = fu_function_rho_theta(x,u);
@@ -214,7 +207,7 @@ title('\theta_M')
 figure
 plot(t,rho_theta,0:delta_t_disc:t(end),rho_theta_disc);
 legend('\rho_\theta cont','\rho_\theta disc')
- 
+
 %% measurement
 % continuous
 z_cont=lambda_ME;
