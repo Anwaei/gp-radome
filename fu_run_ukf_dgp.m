@@ -18,24 +18,24 @@ theta_M=out.yout{11}.Values.Data;
 lambda_r=out.yout{12}.Values.Data;
 lambda_ME=out.yout{13}.Values.Data;
 
-t=out.tout;
-lambda_ME=out.yout{1}.Values.Data;
-lambda=out.yout{2}.Values.Data;
-R=out.yout{3}.Values.Data;
-gamma_M=out.yout{4}.Values.Data;
-A_M=out.yout{5}.Values.Data;
-dot_lambda=out.yout{6}.Values.Data;
-dot_R=out.yout{7}.Values.Data;
-dot_gamma_M=out.yout{8}.Values.Data;
-dot_A_M=out.yout{9}.Values.Data;
-theta_s=out.yout{10}.Values.Data;
-lambda_r=out.yout{11}.Values.Data;
-alpha_M=out.yout{12}.Values.Data;
-theta_M=out.yout{13}.Values.Data;
-rho_theta=out.yout{14}.Values.Data;
-A_cmd=out.yout{15}.Values.Data;
-dot_lambda_ME=out.yout{16}.Values.Data;
-dot_lambda_r=out.yout{17}.Values.Data;
+% t=out.tout;
+% lambda_ME=out.yout{1}.Values.Data;
+% lambda=out.yout{2}.Values.Data;
+% R=out.yout{3}.Values.Data;
+% gamma_M=out.yout{4}.Values.Data;
+% A_M=out.yout{5}.Values.Data;
+% dot_lambda=out.yout{6}.Values.Data;
+% dot_R=out.yout{7}.Values.Data;
+% dot_gamma_M=out.yout{8}.Values.Data;
+% dot_A_M=out.yout{9}.Values.Data;
+% theta_s=out.yout{10}.Values.Data;
+% lambda_r=out.yout{11}.Values.Data;
+% alpha_M=out.yout{12}.Values.Data;
+% theta_M=out.yout{13}.Values.Data;
+% rho_theta=out.yout{14}.Values.Data;
+% A_cmd=out.yout{15}.Values.Data;
+% dot_lambda_ME=out.yout{16}.Values.Data;
+% dot_lambda_r=out.yout{17}.Values.Data;
 
 %% dynamics
 % (1) read CONTinuous data from simulink

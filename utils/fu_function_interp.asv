@@ -1,7 +1,0 @@
-function out = fu_function_interp(out)
-E = out.yout.numElements;
-for i = 1:E
-    y = out.yout{i}.Values.Data;
-    
-
-end
